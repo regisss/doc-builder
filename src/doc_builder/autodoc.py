@@ -35,16 +35,22 @@ def find_object_in_package(object_name, package):
     if path_splits[0] == package.__name__:
         path_splits = path_splits[1:]
     module = package
+    print("MODULE", module)
     for idx, split in enumerate(path_splits):
         submodule = getattr(module, split, None)
+        print("SUBMODULE 1", submodule)
         # `split` could be the name of a package if `package` is a namespace package, in which case it doesn't appear
         # as an attribute if the submodule was not imported before
         if submodule is None and idx == 0:
+            print("000")
             try:
                 importlib.import_module(f"{package.__name__}.{split}")
                 submodule = getattr(module, split, None)
+                print("111")
             except ImportError:
+                print("222")
                 pass
+        print("SUBMODULE 2", submodule)
         module = submodule
         if module is None:
             return
