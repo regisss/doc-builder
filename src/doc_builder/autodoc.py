@@ -45,11 +45,13 @@ def find_object_in_package(object_name, package):
         if submodule is None and idx == 0:
             print("000")
             try:
-                importlib.import_module(f"{package.__name__}.{split}")
+                to_import = f"{package.__name__}.{split}"
+                print("TO_IMPORT", to_import)
+                importlib.import_module(to_import)
                 submodule = getattr(module, split, None)
-                print("111")
-            except ImportError:
-                print("222")
+                print("111", module, split)
+            except ImportError as err:
+                print("222", err)
                 pass
         print("SUBMODULE 2", submodule)
         module = submodule
