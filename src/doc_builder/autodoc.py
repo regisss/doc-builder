@@ -32,6 +32,7 @@ def find_object_in_package(object_name, package):
     -- **package** (`types.ModuleType`) -- The package to look into.
     """
     path_splits = object_name.split(".")
+    print("PATH_SPLITS", path_splits)
     if path_splits[0] == package.__name__:
         path_splits = path_splits[1:]
     module = package
